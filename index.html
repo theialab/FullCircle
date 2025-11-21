@@ -1,0 +1,543 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+  <meta charset="utf-8" />
+  <meta name="description" content="FullCircle: Effortless 3D Reconstruction from Casual 360° Captures" />
+  <meta name="keywords" content="" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>FullCircle</title>
+
+  <style>
+    body {
+      font-family: 'Noto Sans', 'Google Sans', 'Castoro', sans-serif;
+    }
+  </style>
+  <link rel="stylesheet" href="./static/css/bulma.min.css" />
+  <link rel="stylesheet" href="./static/css/bulma-carousel.min.css" />
+  <link rel="stylesheet" href="./static/css/bulma-slider.min.css" />
+  <link rel="stylesheet" href="./static/css/academicons.min.css" />
+  <link rel="stylesheet" href="./static/css/fontawesome.all.min.css" />
+  <link rel="stylesheet" href="./static/css/index.css" />
+  <link rel="stylesheet" href="./static/css/dics.original.css" />
+  <script src="./static/js/jquery.min.js"></script>
+  <script defer src="./static/js/fontawesome.all.min.js"></script>
+  <script src="static/js/dics.original.js"></script>
+
+  <style>
+    .publication-authors {
+      margin-top: 0.75rem;
+      line-height: 1.4;
+    }
+    
+    .publication-authors .affiliations {
+      margin-top: 0.35rem;
+    }
+    
+    .publication-links {
+      margin-top: 1.5rem;
+    }
+
+    .section-title {
+      font-size: 1.5rem;
+      color: #060505;
+      text-align: center;
+      margin-top: 3rem;
+      margin-bottom: 0.1rem;
+    }
+
+    .section-description {
+      margin-top: 0rem;
+      margin-bottom: 0.75rem;
+      font-size: 1.05rem;
+    }
+    
+    @media screen and (max-width: 768px) {
+      .section-description {
+        padding: 0 1.5rem;
+      }
+      .cam-icon {
+        height: 1.6em;
+      }
+      .side-by-side-videos {
+        flex-wrap: wrap;
+        padding: 0 1rem;
+        gap: 1rem;
+      }
+      .side-by-side-videos .video-item {
+        width: 45%;
+      }
+    }
+    .buttons {
+      margin-top: 0.75rem;
+      margin-bottom: 1.25rem;
+    }
+
+    .custom-button {
+      background-color: #161515;
+      color: white;
+      border: none;
+      border-radius: 20px;
+      padding: 0.7rem 0.7rem;
+      margin: 0.25rem;
+      cursor: pointer;
+      transition: background-color 0.3s, color 0.3s;
+      font-size: 0.7rem;
+      flex: 0 0 91px;
+      text-align: center;
+      white-space: nowrap;
+      overflow: hidden;
+      text-overflow: ellipsis;
+      box-sizing: border-box;
+    }
+
+    .side-by-side-videos {
+      display: flex;
+      justify-content: center;
+      gap: 2rem;
+      width: 100%;
+    }
+
+    .custom-button.active {
+      background-color: white;
+      color: #080808;
+      border: 1px solid #b0b0b0;
+    }
+
+    .video-container {
+      margin-top: 0.5rem;
+      display: none;
+    }
+
+    .video-container.active {
+      display: block;
+    }
+
+    .parent-video-compare-container {
+      display: flex;
+      justify-content: center;
+      gap: 2rem;
+    }
+    
+    .video-item {
+      width: 25%;
+      text-align: center;
+    }
+    
+    .video-item video {
+      width: 100%;
+      border-radius: 6px;
+    }
+
+    .video-container .side-by-side-videos video {
+      width: 100%;
+      max-width: 360px;
+      display: block;
+      margin-left: auto;
+      margin-right: auto;
+    }
+
+    .cam-icon {
+      height: 2.5em;
+      width: auto;
+      vertical-align: middle;
+    }
+
+    .video-title {
+      margin-top: 0.3rem;
+      margin-bottom: 2.5rem;
+      font-size: 1rem;
+      font-weight: 500;
+      color: #333;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 0.25rem;
+    }
+
+    .buttons {
+      margin-top: 0.5rem;
+      margin-bottom: 1.5rem;
+    }
+
+  </style>
+</head>
+
+<body>
+  <nav class="navbar" role="navigation" aria-label="main navigation">
+    <div class="navbar-brand">
+      <a role="button" class="navbar-burger" aria-label="menu" aria-expanded="false">
+        <span aria-hidden="true"></span>
+        <span aria-hidden="true"></span>
+        <span aria-hidden="true"></span>
+      </a>
+    </div>
+  </nav>
+
+  <section class="hero">
+    <div class="hero-body">
+      <div class="container is-max-desktop">
+        <div class="columns is-centered">
+          <div class="column has-text-centered">
+            <h1 class="title is-3 publication-title">
+              <span style="font-weight: bold;">FullCircle:</span><br>
+              <span style="font-weight: normal;">Effortless 3D Reconstruction from Casual 360° Captures</span>
+            </h1>
+            <div class="publication-authors">
+              <p class="is-size-5">
+                Yalda Foroutan<sup>1</sup>
+                Ipek Oztas<sup>1,4</sup>
+                Daniel Rebain<sup>2</sup>
+                Aysegul Dundar<sup>4</sup>
+                Kwang Moo Yi<sup>2</sup>
+              </p>
+              <p class="is-size-5">
+                Lily Goli<sup>3</sup>
+                Andrea Tagliasacchi<sup>1,3</sup>
+              </p>
+              <p class="affiliations">
+                <sup>1</sup>Simon Fraser University &nbsp;
+                <sup>2</sup>UBC &nbsp;
+                <sup>3</sup>University of Toronto &nbsp;
+                <sup>4</sup>Bilkent University
+              </p>
+            </div>
+            <div class="publication-links">
+              <a href="paper.pdf" class="custom-button">
+                <span class="icon">
+                  <i class="fas fa-file-alt"></i>
+                </span>
+                <span>Paper</span>
+              </a>
+            </div>
+          
+            <div class="columns is-centered" style="margin-top: 1.5rem;">
+              <div class="column has-text-centered">
+                <h2 class="section-title">Teaser</h2>
+                <img src="static/images/teaser_v5.png"
+                  style="max-width: 100%; border-radius: 6px; margin-top: 0.5rem;"
+                  alt="Teaser image">
+              </div>
+            </div>
+
+            <div class="columns is-centered">
+              <div class="column is-three-quarters-desktop is-full-tablet has-text-centered">
+                <h2 class="section-title">Abstract</h2>
+                <p class="subtitle is-5 section-description">
+                  Radiance fields have emerged as powerful tools for 3D scene reconstruction.
+                  However, casual capture remains challenging due to the narrow field of view of perspective cameras, which limits viewpoint coverage and feature correspondences necessary for reliable camera calibration and reconstruction.
+                  While commercially available 360° cameras offer significantly broader coverage than perspective cameras for the same capture effort, existing 360° reconstruction methods require special capture protocols and pre-processing steps that undermine the promise of radiance fields: effortless workflows to capture and reconstruct 3D scenes. 
+                  We propose a practical pipeline for reconstructing 3D scenes directly from raw 360° camera captures.
+                  Our pipeline requires no special capture protocols or pre-processing, and exhibits robustness to a prevalent source of reconstruction errors: the human operator that is visible in all 360° imagery.
+                  To facilitate evaluation, we introduce a multi-tiered dataset of scenes captured as raw dual-fisheye images, establishing a benchmark for robust casual 360° reconstruction.
+                  Our method significantly outperforms not only vanilla 3DGS for 360° cameras but also robust perspective baselines when perspective cameras are simulated from the same capture, demonstrating the advantages of 360° capture for casual reconstruction.
+                </p>
+              </div>
+            </div>
+
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <div class="columns is-centered">
+    <div class="column is-three-quarters-desktop is-full-tablet has-text-centered">
+      <h2 class="section-title">Dual-fisheye vs. perspective</h2>
+      <p class="subtitle is-5 section-description">
+        360° cameras are convenient ways of performing casual scene capture. Using a dual-fisheye 360° camera model 
+        (<img src="logos/fisheye-1.png" alt="Dual-fisheye" class="cam-icon" style="height: 1.2em;">-<img src="logos/fisheye-1.png" alt="Dual-fisheye" class="cam-icon" style="height: 1.2em;">) 
+        allows much higher reconstruction quality than using perspective cameras 
+        (<img src="logos/camera-1.png" alt="Perspective" class="cam-icon" style="height: 1.2em;">-<img src="logos/camera-1.png" alt="Perspective" class="cam-icon" style="height: 1.2em;">), 
+        or using a fisheye camera with a perspective model 
+        (<img src="logos/fisheye-1.png" alt="Dual-fisheye" class="cam-icon" style="height: 1.2em;">-<img src="logos/camera-1.png" alt="Perspective" class="cam-icon" style="height: 1.2em;">).
+      </p>
+    </div>
+  </div>
+
+  <div class="columns is-multiline is-centered">
+    <div class="column is-three-quarters-desktop is-full-tablet has-text-centered">
+      <div class="side-by-side-videos">
+        <div class="video-item">
+          <video autoplay muted loop>
+            <source src="static/videos/360vspers/pers.mp4" type="video/mp4">
+          </video>
+          <div class="video-title">
+            <img src="logos/camera-1.png" alt="Perspective" class="cam-icon">
+            <span style="font-size: 1.5em; font-weight: bold; vertical-align: middle;">-</span>
+            <img src="logos/camera-1.png" alt="Perspective" class="cam-icon">
+          </div>
+        </div>
+  
+        <div class="video-item">
+          <video autoplay muted loop>
+            <source src="static/videos/360vspers/360pers.mp4" type="video/mp4">
+          </video>
+          <div class="video-title">
+            <img src="logos/fisheye-1.png" alt="Dual-fisheye" class="cam-icon">
+            <span style="font-size: 1.5em; font-weight: bold; vertical-align: middle;">-</span>
+            <img src="logos/camera-1.png" alt="Perspective" class="cam-icon">
+          </div>
+        </div>
+  
+        <div class="video-item">
+          <video autoplay muted loop>
+            <source src="static/videos/360vspers/360.mp4" type="video/mp4">
+          </video>
+          <div class="video-title">
+            <img src="logos/fisheye-1.png" alt="Dual-fisheye" class="cam-icon">
+            <span style="font-size: 1.5em; font-weight: bold; vertical-align: middle;">-</span>
+            <img src="logos/fisheye-1.png" alt="Dual-fisheye" class="cam-icon">
+          </div>
+        </div>
+  
+        <div class="video-item">
+          <video autoplay muted loop>
+            <source src="static/videos/360vspers/cam.mp4" type="video/mp4">
+          </video>
+          <div class="video-title">Camera path</div>
+        </div>
+      </div>
+    </div>
+  </div>
+  
+  
+  <div class="columns is-centered">
+    <div class="column is-three-quarters-desktop is-full-tablet has-text-centered">
+      <h2 class="section-title">Reconstruction via undistortion</h2>
+      <p class="subtitle is-5 section-description">
+        Conventional undistortion-based utilization of 360 scene capture degrades performance, both with robust (SLS) and without robust reconstruction (3DGS).
+      </p>
+    </div>
+  </div>
+
+  <div class="columns is-centered">
+    <div class="column has-text-centered">
+      <div class="buttons are-small is-multiline is-centered">
+        <button class="custom-button" onclick="showVideo('video6', 'undistort', this)">Lab</button>
+        <button class="custom-button active" onclick="showVideo('video7', 'undistort', this)">Lounge</button>
+        <button class="custom-button" onclick="showVideo('video8', 'undistort', this)">Persons</button>
+        <button class="custom-button" onclick="showVideo('video9', 'undistort', this)">Shadow</button>
+        
+      </div>
+    </div>
+  </div>
+
+  <div class="columns is-centered">
+    <div class="column has-text-centered">
+
+      <div id="video6" class="video-container" data-group="undistort">
+        <div class="parent-video-compare-container">
+          <div class="video-item">
+            <video src="static/videos/pers/lab-3dgs.mp4" autoplay loop muted></video>
+            <div class="video-title">3DGS</div>
+          </div>
+          <div class="video-item">
+            <video src="static/videos/pers/lab-sls.mp4" autoplay loop muted></video>
+            <div class="video-title">SLS</div>
+          </div>
+          <div class="video-item">
+            <video src="static/videos/pers/lab-ours.mp4" autoplay loop muted></video>
+            <div class="video-title">FullCircle (ours)</div>
+          </div>
+        </div>
+      </div>
+
+      <div id="video7" class="video-container active" data-group="undistort">
+        <div class="parent-video-compare-container">
+          <div class="video-item">
+            <video src="static/videos/pers/lounge-3dgs.mp4" autoplay loop muted></video>
+            <div class="video-title">3DGS</div>
+          </div>
+          <div class="video-item">
+            <video src="static/videos/pers/lounge-sls.mp4" autoplay loop muted></video>
+            <div class="video-title">SLS</div>
+          </div>
+          <div class="video-item">
+            <video src="static/videos/pers/lounge-ours.mp4" autoplay loop muted></video>
+            <div class="video-title">FullCircle (ours)</div>
+          </div>
+        </div>
+      </div>
+
+      <div id="video8" class="video-container" data-group="undistort">
+        <div class="parent-video-compare-container">
+          <div class="video-item">
+            <video src="static/videos/pers/persons-3dgs.mp4" autoplay loop muted></video>
+            <div class="video-title">3DGS</div>
+          </div>
+          <div class="video-item">
+            <video src="static/videos/pers/persons-sls.mp4" autoplay loop muted></video>
+            <div class="video-title">SLS</div>
+          </div>
+          <div class="video-item">
+            <video src="static/videos/pers/persons-ours.mp4" autoplay loop muted></video>
+            <div class="video-title">FullCircle (ours)</div>
+          </div>
+        </div>
+      </div>
+
+      <div id="video9" class="video-container" data-group="undistort">
+        <div class="parent-video-compare-container">
+          <div class="video-item">
+            <video src="static/videos/pers/shadow-3dgs.mp4" autoplay loop muted></video>
+            <div class="video-title">3DGS</div>
+          </div>
+          <div class="video-item">
+            <video src="static/videos/pers/shadow-sls.mp4" autoplay loop muted></video>
+            <div class="video-title">SLS</div>
+          </div>
+          <div class="video-item">
+            <video src="static/videos/pers/shadow-ours.mp4" autoplay loop muted></video>
+            <div class="video-title">FullCircle (ours)</div>
+          </div>
+        </div>
+      </div>
+
+    </div>
+  </div>
+
+  
+  <div class="columns is-centered">
+    <div class="column is-three-quarters-desktop is-full-tablet has-text-centered">
+      <h2 class="section-title">Dual-fisheye reconstruction</h2>
+      <p class="subtitle is-5 section-description">
+        We also remove the camera operator, which provides clearer reconstruction quality. This is especially important for a casual capture setup with a 360° camera, as the operator is always in view.
+      </p>
+    </div>
+  </div>
+
+    <div class="columns is-centered">
+      <div class="column has-text-centered">
+        <div class="buttons are-small is-multiline is-centered">
+          <button class="custom-button" onclick="showVideo('video1', 'fisheye', this)">Room 1</button>
+          <button class="custom-button" onclick="showVideo('video2', 'fisheye', this)">Flat 1</button>
+          <button class="custom-button active" onclick="showVideo('video3', 'fisheye', this)">Flat 2</button>
+          <button class="custom-button" onclick="showVideo('video4', 'fisheye', this)">Room 2</button>
+          <button class="custom-button" onclick="showVideo('video5', 'fisheye', this)">Room 3</button>
+          
+        </div>
+      </div>
+    </div>
+
+    <div class="columns is-centered">
+      <div class="column has-text-centered">
+
+        <div id="video1" class="video-container" data-group="fisheye">
+          <div class="parent-video-compare-container">
+            <div class="side-by-side-videos">
+              <div class="video-item">
+                <video src="static/videos/fisheye/room1-grt.mp4" autoplay loop muted></video>
+                <div class="video-title">3DGRT</div>
+              </div>
+              <div class="video-item">
+                <video src="static/videos/fisheye/room1-sls.mp4" autoplay loop muted></video>
+                <div class="video-title">SLS</div>
+              </div>
+              <div class="video-item">
+                <video src="static/videos/fisheye/room1-ours.mp4" autoplay loop muted></video>
+                <div class="video-title">FullCircle (ours)</div>
+              </div>
+            </div>
+          </div>
+        </div>
+        
+        <div id="video2" class="video-container" data-group="fisheye">
+          <div class="parent-video-compare-container">
+            <div class="side-by-side-videos">
+              <div class="video-item">
+                <video src="static/videos/fisheye/flat1-grt.mp4" autoplay loop muted></video>
+                <div class="video-title">3DGRT</div>
+              </div>
+              <div class="video-item">
+                <video src="static/videos/fisheye/flat1-sls.mp4" autoplay loop muted></video>
+                <div class="video-title">SLS</div>
+              </div>
+              <div class="video-item">
+                <video src="static/videos/fisheye/flat1-ours.mp4" autoplay loop muted></video>
+                <div class="video-title">FullCircle (ours)</div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div id="video3" class="video-container active" data-group="fisheye">
+          <div class="parent-video-compare-container">
+            <div class="side-by-side-videos">
+              <div class="video-item">
+                <video src="static/videos/fisheye/flat2-grt.mp4" autoplay loop muted></video>
+                <div class="video-title">3DGRT</div>
+              </div>
+              <div class="video-item">
+                <video src="static/videos/fisheye/flat2-sls.mp4" autoplay loop muted></video>
+                <div class="video-title">SLS</div>
+              </div>
+              <div class="video-item">
+                <video src="static/videos/fisheye/flat2-ours.mp4" autoplay loop muted></video>
+                <div class="video-title">FullCircle (ours)</div>
+              </div>
+            </div>
+          </div>
+        </div>
+        
+        <div id="video4" class="video-container" data-group="fisheye">
+          <div class="parent-video-compare-container">
+            <div class="side-by-side-videos">
+              <div class="video-item">
+                <video src="static/videos/fisheye/room2-grt.mp4" autoplay loop muted></video>
+                <div class="video-title">3DGRT</div>
+              </div>
+              <div class="video-item">
+                <video src="static/videos/fisheye/room2-sls.mp4" autoplay loop muted></video>
+                <div class="video-title">SLS</div>
+              </div>
+              <div class="video-item">
+                <video src="static/videos/fisheye/room2-ours.mp4" autoplay loop muted></video>
+                <div class="video-title">FullCircle (ours)</div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div id="video5" class="video-container" data-group="fisheye">
+          <div class="parent-video-compare-container">
+            <div class="side-by-side-videos">
+              <div class="video-item">
+                <video src="static/videos/fisheye/room3-grt.mp4" autoplay loop muted></video>
+                <div class="video-title">3DGRT</div>
+              </div>
+              <div class="video-item">
+                <video src="static/videos/fisheye/room3-sls.mp4" autoplay loop muted></video>
+                <div class="video-title">SLS</div>
+              </div>
+              <div class="video-item">
+                <video src="static/videos/fisheye/room3-ours.mp4" autoplay loop muted></video>
+                <div class="video-title">FullCircle (ours)</div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+      </div>
+    </div>
+  </div>
+</div>
+
+</html>
+
+<script>
+  function showVideo(videoId, group, btn) {
+    const videos = document.querySelectorAll('.video-container[data-group="' + group + '"]');
+    videos.forEach(video => video.classList.remove('active'));
+
+    const selectedVideo = document.getElementById(videoId);
+    if (selectedVideo) selectedVideo.classList.add('active');
+
+    if (btn) {
+      const buttonsContainer = btn.parentElement;
+      const buttons = buttonsContainer.querySelectorAll('.custom-button');
+      buttons.forEach(b => b.classList.remove('active'));
+      btn.classList.add('active');
+    }
+  }
+</script>
